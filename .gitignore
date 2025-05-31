@@ -1,0 +1,17 @@
+# Ignore local .terraform directories
+.terraform/
+
+# Ignore state files
+*.tfstate
+*.tfstate.backup
+
+# Ignore plan output
+*.out
+tfplan
+
+# Crash logs
+crash.log
+
+# CLI config
+.terraformrc
+terraform.rc
