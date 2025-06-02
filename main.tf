@@ -1,10 +1,12 @@
 provider "aws" {
-  region = "us-west-2"
+  region  = "us-west-2"
+  profile = "Kaustubh"  # Add your profile for this region
 }
 
 provider "aws" {
-  alias  = "useast1"
-  region = "us-east-1"
+  alias   = "useast1"
+  region  = "us-east-1"
+  profile = "Kaustubh"  # Use the same profile or another if different
 }
 
 locals {
