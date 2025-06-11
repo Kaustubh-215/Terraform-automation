@@ -45,7 +45,28 @@ rds_clusters_east = [
   }
 ]
 
-
+rds_clusters_apac = [
+  {
+    name   = "apac-01"
+    reader = "apac-01-reader-db"
+    writer = "apac-01-writer-db"
+  },
+  {
+    name   = "apac-02"
+    reader = "apac-02-reader-db"
+    writer = "apac-02-writer-db"
+  },
+  {
+    name   = "apac-03"
+    reader = "apac-03-reader-db"
+    writer = "apac-03-writer-db"
+  },
+  {
+    name   = "apac-04"
+    reader = "apac-04-reader-db"
+    writer = "apac-04-writer-db"
+  }
+]
 
 sqs_queues = [
   {
@@ -68,6 +89,19 @@ sqs_queues_east = [
   },
   {
     name                         = "payment-events-queue"
+    visible_threshold            = 100
+    oldest_message_age_threshold = 300
+  }
+]
+
+sqs_queues_apac = [
+  {
+    name                         = "order-processing-queue-apac"
+    visible_threshold            = 100
+    oldest_message_age_threshold = 300
+  },
+  {
+    name                         = "payment-events-queue-apac"
     visible_threshold            = 100
     oldest_message_age_threshold = 300
   }

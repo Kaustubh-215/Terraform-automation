@@ -32,3 +32,19 @@ variable "sqs_queues_east" {
     oldest_message_age_threshold = number
   }))
 }
+
+variable "rds_clusters_apac" {
+  type = list(object({
+    name   = string
+    reader = string
+    writer = string
+  }))
+}
+
+variable "sqs_queues_apac" {
+  type = list(object({
+    name                         = string
+    visible_threshold            = number
+    oldest_message_age_threshold = number
+  }))
+}
