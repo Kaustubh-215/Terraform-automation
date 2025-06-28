@@ -1,11 +1,14 @@
 variable "queue_name" {
-  type = string
+  description = "The name of the SQS queue"
+  type        = string
 }
 
 variable "visible_threshold" {
-  type = number
+  description = "Threshold for ApproximateNumberOfMessagesVisible"
+  type        = number
 }
 
 variable "oldest_message_age_threshold" {
-  type = number
+  description = "Threshold (in seconds) for ApproximateAgeOfOldestMessage"
+  type        = number
 }
