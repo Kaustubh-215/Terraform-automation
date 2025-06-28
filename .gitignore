@@ -1,17 +1,21 @@
-# Ignore local .terraform directories
-.terraform/
-
-# Ignore state files
+# Ignore Terraform state and backup files
 *.tfstate
 *.tfstate.backup
 
-# Ignore plan output
+# Ignore plan files (binary output from `terraform plan -out`)
+*.plan
 *.out
-tfplan
 
-# Crash logs
+# Ignore auto-generated crash logs
 crash.log
 
-# CLI config
-.terraformrc
-terraform.rc
+# Ignore sensitive variable files
+*.tfvars
+
+# Optional: allow example tfvars for documentation
+!terraform.tfvars.example
+
+# Ignore .terraform working directory (downloads, plugins, lockfiles)
+.terraform/
+.terraform.lock.hcl
+
