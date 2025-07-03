@@ -1,8 +1,8 @@
 alarm_config = {
-  cpu_threshold_reader        = 60
+  cpu_threshold_reader        = 65
   cpu_threshold_writer        = 50
-  connection_threshold_reader = 1800
-  connection_threshold_writer = 2100
+  connection_threshold_reader = 2100
+  connection_threshold_writer = 1700
   period                      = 300
   evaluation_periods          = 2
   datapoints_to_alarm         = 4
