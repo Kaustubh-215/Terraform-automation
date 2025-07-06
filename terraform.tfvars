@@ -1,10 +1,10 @@
 # RDS Alarm Configuration Per Region
 alarm_config_by_region = {
   "us-west-2" = {
-    cpu_threshold_reader        = 65
+    cpu_threshold_reader        = 70
     cpu_threshold_writer        = 50
     connection_threshold_reader = 2100
-    connection_threshold_writer = 1700
+    connection_threshold_writer = 1500
     period                      = 120
     evaluation_periods          = 2
     datapoints_to_alarm         = 4
