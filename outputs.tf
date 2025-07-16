@@ -1,137 +1,37 @@
-# ---------------------
-# RDS Reader Alarms
-# ---------------------
-
-output "cpu_alarm_names_west" {
+# RDS Outputs
+output "rds_reader_cpu_alarms" {
   value = {
-    for key, mod in module.rds_alarms_west :
-    key => mod.cpu_alarm_name
+    for key, mod in module.rds_reader_alarms : key => mod.cpu_alarm_name
   }
 }
 
-output "connection_alarm_names_west" {
+output "rds_reader_connection_alarms" {
   value = {
-    for key, mod in module.rds_alarms_west :
-    key => mod.connection_alarm_name
+    for key, mod in module.rds_reader_alarms : key => mod.connection_alarm_name
   }
 }
 
-output "cpu_alarm_names_east" {
+output "rds_writer_cpu_alarms" {
   value = {
-    for key, mod in module.rds_alarms_east :
-    key => mod.cpu_alarm_name
+    for key, mod in module.rds_writer_alarms : key => mod.cpu_alarm_name
   }
 }
 
-output "connection_alarm_names_east" {
+output "rds_writer_connection_alarms" {
   value = {
-    for key, mod in module.rds_alarms_east :
-    key => mod.connection_alarm_name
+    for key, mod in module.rds_writer_alarms : key => mod.connection_alarm_name
   }
 }
 
-output "cpu_alarm_names_apac" {
+# SQS Outputs
+output "sqs_visible_alarms" {
   value = {
-    for key, mod in module.rds_alarms_apac :
-    key => mod.cpu_alarm_name
+    for key, mod in module.sqs_alarms : key => mod.visible_messages_alarm_name
   }
 }
 
-output "connection_alarm_names_apac" {
+output "sqs_oldest_message_alarms" {
   value = {
-    for key, mod in module.rds_alarms_apac :
-    key => mod.connection_alarm_name
-  }
-}
-
-# ---------------------
-# RDS Writer Alarms
-# ---------------------
-
-output "cpu_writer_alarm_names_west" {
-  value = {
-    for key, mod in module.rds_writer_alarms_west :
-    key => mod.cpu_alarm_name
-  }
-}
-
-output "connection_writer_alarm_names_west" {
-  value = {
-    for key, mod in module.rds_writer_alarms_west :
-    key => mod.connection_alarm_name
-  }
-}
-
-output "cpu_writer_alarm_names_east" {
-  value = {
-    for key, mod in module.rds_writer_alarms_east :
-    key => mod.cpu_alarm_name
-  }
-}
-
-output "connection_writer_alarm_names_east" {
-  value = {
-    for key, mod in module.rds_writer_alarms_east :
-    key => mod.connection_alarm_name
-  }
-}
-
-output "cpu_writer_alarm_names_apac" {
-  value = {
-    for key, mod in module.rds_writer_alarms_apac :
-    key => mod.cpu_alarm_name
-  }
-}
-
-output "connection_writer_alarm_names_apac" {
-  value = {
-    for key, mod in module.rds_writer_alarms_apac :
-    key => mod.connection_alarm_name
-  }
-}
-
-# ---------------------
-# SQS Alarms
-# ---------------------
-
-output "visible_messages_alarm_names_west" {
-  value = {
-    for key, mod in module.sqs_alarms_west :
-    key => mod.visible_messages_alarm_name
-  }
-}
-
-output "oldest_message_alarm_names_west" {
-  value = {
-    for key, mod in module.sqs_alarms_west :
-    key => mod.oldest_message_alarm_name
-  }
-}
-
-output "visible_messages_alarm_names_east" {
-  value = {
-    for key, mod in module.sqs_alarms_east :
-    key => mod.visible_messages_alarm_name
-  }
-}
-
-output "oldest_message_alarm_names_east" {
-  value = {
-    for key, mod in module.sqs_alarms_east :
-    key => mod.oldest_message_alarm_name
-  }
-}
-
-output "visible_messages_alarm_names_apac" {
-  value = {
-    for key, mod in module.sqs_alarms_apac :
-    key => mod.visible_messages_alarm_name
-  }
-}
-
-output "oldest_message_alarm_names_apac" {
-  value = {
-    for key, mod in module.sqs_alarms_apac :
-    key => mod.oldest_message_alarm_name
+    for key, mod in module.sqs_alarms : key => mod.oldest_message_alarm_name
   }
 }
