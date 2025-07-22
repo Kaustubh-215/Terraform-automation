@@ -1,5 +1,5 @@
 variable "alarm_prefix" {
-  description = "Prefix for naming alarms (usually includes env and queue name)"
+  description = "Alarm name prefix (e.g., dev-us-east-1-queue-name-SQS)"
   type        = string
 }
 
@@ -9,11 +9,11 @@ variable "queue_name" {
 }
 
 variable "visible_threshold" {
-  description = "Threshold for visible messages count"
+  description = "Threshold for visible messages alarm"
   type        = number
 }
 
 variable "oldest_message_age_threshold" {
-  description = "Threshold for age of oldest message (in seconds)"
+  description = "Threshold for oldest message age alarm"
   type        = number
 }

@@ -1,39 +1,39 @@
 variable "alarm_prefix" {
-  description = "Prefix used for naming the alarm"
+  description = "Alarm name prefix (e.g., dev-us-east-1-rds-01-RDS-READER)"
   type        = string
 }
 
 variable "db_instance_identifier" {
-  description = "RDS DB instance name"
+  description = "Identifier of the RDS DB instance"
   type        = string
 }
 
 variable "cpu_threshold" {
-  description = "CPU utilization threshold"
   type        = number
+  description = "Threshold for CPU utilization alarm"
 }
 
 variable "connection_threshold" {
-  description = "Database connection count threshold"
   type        = number
+  description = "Threshold for DB connection count alarm"
 }
 
 variable "period" {
-  description = "Monitoring period in seconds"
   type        = number
+  description = "Period of metric collection in seconds"
 }
 
 variable "evaluation_periods" {
-  description = "Number of periods for evaluation"
   type        = number
+  description = "Number of evaluation periods for alarm comparison"
 }
 
 variable "datapoints_to_alarm" {
-  description = "Datapoints required to trigger alarm"
   type        = number
+  description = "Datapoints required to trigger alarm"
 }
 
 variable "statistic" {
-  description = "CloudWatch metric statistic"
   type        = string
+  description = "Statistic type for alarm (e.g., Average, Maximum)"
 }

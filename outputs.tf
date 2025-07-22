@@ -1,37 +1,29 @@
-# RDS Outputs
-output "rds_reader_cpu_alarms" {
+output "rds_reader_alarm_names" {
+  description = "Alarm names for RDS reader instances"
   value = {
-    for key, mod in module.rds_reader_alarms : key => mod.cpu_alarm_name
+    for name, mod in module.rds_reader_alarms : name => {
+      cpu_alarm        = mod.cpu_alarm_name
+      connection_alarm = mod.connection_alarm_name
+    }
   }
 }
 
-output "rds_reader_connection_alarms" {
+output "rds_writer_alarm_names" {
+  description = "Alarm names for RDS writer instances"
   value = {
-    for key, mod in module.rds_reader_alarms : key => mod.connection_alarm_name
+    for name, mod in module.rds_writer_alarms : name => {
+      cpu_alarm        = mod.cpu_alarm_name
+      connection_alarm = mod.connection_alarm_name
+    }
   }
 }
 
-output "rds_writer_cpu_alarms" {
+output "sqs_alarm_names" {
+  description = "Alarm names for SQS queues"
   value = {
-    for key, mod in module.rds_writer_alarms : key => mod.cpu_alarm_name
-  }
-}
-
-output "rds_writer_connection_alarms" {
-  value = {
-    for key, mod in module.rds_writer_alarms : key => mod.connection_alarm_name
-  }
-}
-
-# SQS Outputs
-output "sqs_visible_alarms" {
-  value = {
-    for key, mod in module.sqs_alarms : key => mod.visible_messages_alarm_name
-  }
-}
-
-output "sqs_oldest_message_alarms" {
-  value = {
-    for key, mod in module.sqs_alarms : key => mod.oldest_message_alarm_name
+    for name, mod in module.sqs_alarms : name => {
+      visible_alarm = mod.visible_messages_alarm_name
+      age_alarm     = mod.oldest_message_alarm_name
+    }
   }
 }

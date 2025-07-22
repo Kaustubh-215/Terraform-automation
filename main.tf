@@ -3,25 +3,42 @@ provider "aws" {
   profile = var.aws_profile
 }
 
+# ---------------------------------------------------
+# Local resource names (no env/region duplication)
+# ---------------------------------------------------
 locals {
-  rds_clusters = [
-    for i in range(1, 4) : {
-      name   = "rds-${format("%02d", i)}"
-      reader = "rds-${format("%02d", i)}-reader"
-      writer = "rds-${format("%02d", i)}-writer"
-    }
+  rds_readers = [
+    "DEV-US-EAST-1-instance-01",
+    "DEV-US-EAST-1-instance-02",
+    "DEV-US-EAST-1-instance-03",
+    "DEV-US-EAST-1-instance-04",
+    "DEV-US-EAST-1-instance-05"
+  ]
+
+  rds_writers = [
+    "DEV-US-EAST-1-instance-06",
+    "DEV-US-EAST-1-instance-07",
+    "DEV-US-EAST-1-instance-08",
+    "DEV-US-EAST-1-instance-09",
+    "DEV-US-EAST-1-instance-10"
+  ]
+
+  sqs_queue_names = [
+    "DEV-US-EAST-1-SQS-night-audit",
+    "DEV-US-EAST-1-SQS-pre-night-audit"
   ]
 }
 
-# ---------------------
+# ---------------------------------------------------
 # RDS Reader Alarms
-# ---------------------
+# ---------------------------------------------------
 module "rds_reader_alarms" {
   source = "./modules/rds_alarms"
+
   for_each = {
-    for cluster in local.rds_clusters : "${cluster.name}_reader" => {
-      db_id        = cluster.reader
-      alarm_prefix = "${var.env_name}-${var.region}-${cluster.name}-RDS-READER"
+    for name in local.rds_readers : name => {
+      db_id        = name
+      alarm_prefix = "${name}-RDS-READER"
     }
   }
 
@@ -35,15 +52,16 @@ module "rds_reader_alarms" {
   statistic              = var.statistic
 }
 
-# ---------------------
+# ---------------------------------------------------
 # RDS Writer Alarms
-# ---------------------
+# ---------------------------------------------------
 module "rds_writer_alarms" {
   source = "./modules/rds_alarms"
+
   for_each = {
-    for cluster in local.rds_clusters : "${cluster.name}_writer" => {
-      db_id        = cluster.writer
-      alarm_prefix = "${var.env_name}-${var.region}-${cluster.name}-RDS-WRITER"
+    for name in local.rds_writers : name => {
+      db_id        = name
+      alarm_prefix = "${name}-RDS-WRITER"
     }
   }
 
@@ -57,18 +75,22 @@ module "rds_writer_alarms" {
   statistic              = var.statistic
 }
 
-# ---------------------
+# ---------------------------------------------------
 # SQS Queue Alarms
-# ---------------------
+# ---------------------------------------------------
 module "sqs_alarms" {
   source = "./modules/sqs_alarms"
 
   for_each = {
-    for queue in var.sqs_queues : queue.name => queue
+    for name in local.sqs_queue_names : name => {
+      alarm_prefix                  = "${name}-SQS"
+      visible_threshold             = var.sqs_thresholds[name].visible
+      oldest_message_age_threshold = var.sqs_thresholds[name].oldest_age
+    }
   }
 
-  alarm_prefix                 = "${var.env_name}-${var.region}-${each.value.name}-SQS"
-  queue_name                   = each.value.name
+  alarm_prefix                 = each.value.alarm_prefix
+  queue_name                   = each.key
   visible_threshold            = each.value.visible_threshold
   oldest_message_age_threshold = each.value.oldest_message_age_threshold
 }
