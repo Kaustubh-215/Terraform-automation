@@ -18,11 +18,10 @@ locals {
 # ---------------------
 module "rds_reader_alarms" {
   source = "./modules/rds_alarms"
-
   for_each = {
     for cluster in local.rds_clusters : "${cluster.name}_reader" => {
       db_id        = cluster.reader
-      alarm_prefix = "${var.env_name}-${cluster.name}-RDS-READER"
+      alarm_prefix = "${var.env_name}-${var.region}-${cluster.name}-RDS-READER"
     }
   }
 
@@ -41,11 +40,10 @@ module "rds_reader_alarms" {
 # ---------------------
 module "rds_writer_alarms" {
   source = "./modules/rds_alarms"
-
   for_each = {
     for cluster in local.rds_clusters : "${cluster.name}_writer" => {
       db_id        = cluster.writer
-      alarm_prefix = "${var.env_name}-${cluster.name}-RDS-WRITER"
+      alarm_prefix = "${var.env_name}-${var.region}-${cluster.name}-RDS-WRITER"
     }
   }
 
@@ -69,8 +67,8 @@ module "sqs_alarms" {
     for queue in var.sqs_queues : queue.name => queue
   }
 
+  alarm_prefix                 = "${var.env_name}-${var.region}-${each.value.name}-SQS"
   queue_name                   = each.value.name
   visible_threshold            = each.value.visible_threshold
   oldest_message_age_threshold = each.value.oldest_message_age_threshold
-  alarm_prefix                 = "${var.env_name}-${each.value.name}-SQS"
 }
