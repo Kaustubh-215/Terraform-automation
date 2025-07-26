@@ -4,37 +4,28 @@ provider "aws" {
 }
 
 # ---------------------------------------------------
-# Define RDS Readers, Writers and SQS Queue Names
+# Local resource names (no env/region duplication)
 # ---------------------------------------------------
 locals {
   rds_readers = [
-    "instance-01",
-    "instance-02",
-    "instance-03",
-    "instance-04",
-    "instance-05",
-    "instance-06",
-    "instance-07",
-    "instance-08",
-    "instance-09"
+    "DEV-US-EAST-1-instance-01",
+    "DEV-US-EAST-1-instance-02",
+    "DEV-US-EAST-1-instance-03",
+    "DEV-US-EAST-1-instance-04",
+    "DEV-US-EAST-1-instance-05"
   ]
 
   rds_writers = [
-    "instance-01",
-    "instance-02",
-    "instance-03",
-    "instance-04",
-    "instance-05",
-    "instance-06",
-    "instance-07",
-    "instance-08",
-    "instance-09"
+    "DEV-US-EAST-1-instance-06",
+    "DEV-US-EAST-1-instance-07",
+    "DEV-US-EAST-1-instance-08",
+    "DEV-US-EAST-1-instance-09",
+    "DEV-US-EAST-1-instance-10"
   ]
 
   sqs_queue_names = [
-    "sqs-night-audit",
-    "sqs-pre-night-audit",
-    "sqs-push-down-to-slave"
+    "DEV-US-EAST-1-SQS-night-audit",
+    "DEV-US-EAST-1-SQS-pre-night-audit"
   ]
 }
 
@@ -47,7 +38,7 @@ module "rds_reader_alarms" {
   for_each = {
     for name in local.rds_readers : name => {
       db_id        = name
-      alarm_prefix = "${var.env_name}-${var.region}-${name}-RDS-READER"
+      alarm_prefix = "${name}-RDS-READER"
     }
   }
 
@@ -70,7 +61,7 @@ module "rds_writer_alarms" {
   for_each = {
     for name in local.rds_writers : name => {
       db_id        = name
-      alarm_prefix = "${var.env_name}-${var.region}-${name}-RDS-WRITER"
+      alarm_prefix = "${name}-RDS-WRITER"
     }
   }
 
@@ -91,10 +82,10 @@ module "sqs_alarms" {
   source = "./modules/sqs_alarms"
 
   for_each = {
-    for queue_name, config in var.sqs_thresholds : queue_name => {
-      alarm_prefix                 = "${var.env_name}-${var.region}-${queue_name}"
-      visible_threshold            = config.visible
-      oldest_message_age_threshold = config.oldest_age
+    for name in local.sqs_queue_names : name => {
+      alarm_prefix                  = "${name}-SQS"
+      visible_threshold             = var.sqs_thresholds[name].visible
+      oldest_message_age_threshold = var.sqs_thresholds[name].oldest_age
     }
   }
 

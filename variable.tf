@@ -56,7 +56,7 @@ variable "statistic" {
 variable "sqs_thresholds" {
   description = "Map of SQS queue thresholds"
   type = map(object({
-    visible     = number
-    oldest_age  = number
+    visible    = number
+    oldest_age = number
   }))
 }
