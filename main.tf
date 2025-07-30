@@ -34,7 +34,10 @@ locals {
   sqs_queue_names = [
     "sqs-night-audit",
     "sqs-pre-night-audit",
-    "sqs-push-down-to-slave"
+    "sqs-push-down-to-slave",
+    "queue-1",
+    "queue-2",
+    "queue-3"
   ]
 }
 
