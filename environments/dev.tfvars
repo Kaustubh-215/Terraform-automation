@@ -21,13 +21,10 @@ sqs_thresholds = {
     visible    = 50
     oldest_age = 180
   },
-<<<<<<< HEAD
   "sqs-push-down-to-slave" = {
       visible    = 150
       oldest_age = 400
     },
-=======
->>>>>>> 02f31f3458d87199700eed1df85dff998503cec7
   "queue-1" = {
     visible    = 40
     oldest_age = 160

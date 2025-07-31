@@ -1,5 +1,5 @@
 variable "type" {
-  description = "Type of alarm to create: 'rds' or 'sqs'"
+  description = "Type of alarm to create 'rds'"
   type        = string
 }
 
@@ -43,3 +43,4 @@ variable "rds_statistic" {
   type    = string
   default = null
 }
+
