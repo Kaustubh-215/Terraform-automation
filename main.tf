@@ -3,6 +3,7 @@ provider "aws" {
   profile = var.aws_profile  # Optional: set if using named AWS CLI profiles
 }
 
+<<<<<<< HEAD
 #  RDS Reader Alarms
 module "rds_instance_01_reader_alarm" {
   source                     = "./modules/Alarms"
@@ -15,6 +16,44 @@ module "rds_instance_01_reader_alarm" {
   rds_evaluation_periods     = var.evaluation_periods
   rds_datapoints_to_alarm    = var.datapoints_to_alarm
   rds_statistic              = var.statistic
+=======
+# ---------------------------------------------------
+# Define RDS Readers, Writers and SQS Queue Names
+# ---------------------------------------------------
+locals {
+  rds_readers = [
+    "instance-01",
+    "instance-02",
+    "instance-03",
+    "instance-04",
+    "instance-05",
+    "instance-06",
+    "instance-07",
+    "instance-08",
+    "instance-09"
+  ]
+
+  rds_writers = [
+    "instance-01",
+    "instance-02",
+    "instance-03",
+    "instance-04",
+    "instance-05",
+    "instance-06",
+    "instance-07",
+    "instance-08",
+    "instance-09"
+  ]
+
+  sqs_queue_names = [
+    "sqs-night-audit",
+    "sqs-pre-night-audit",
+    "sqs-push-down-to-slave",
+    "queue-1",
+    "queue-2",
+    "queue-3"
+  ]
+>>>>>>> 02f31f3458d87199700eed1df85dff998503cec7
 }
 
 module "rds_instance_02_reader_alarm" {
