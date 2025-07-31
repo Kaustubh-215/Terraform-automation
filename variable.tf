@@ -59,4 +59,31 @@ variable "sqs_thresholds" {
     visible    = number
     oldest_age = number
   }))
+  default = {
+    "sqs-night-audit" = {
+      visible    = 100
+      oldest_age = 300
+    }
+    "sqs-pre-night-audit" = {
+      visible    = 120
+      oldest_age = 250
+    }
+    "sqs-push-down-to-slave" = {
+      visible    = 150
+      oldest_age = 400
+    }
+    "queue-1" = {
+      visible    = 200
+      oldest_age = 360
+    }
+    "queue-2" = {
+      visible    = 180
+      oldest_age = 320
+    }
+    "queue-3" = {
+      visible    = 170
+      oldest_age = 310
+    }
+  }
 }
+

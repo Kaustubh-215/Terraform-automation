@@ -1,4 +1,4 @@
-region         = "us-west-2"
+region         = "ap-southeast-1"   # APAC region
 aws_profile    = "default"
 env_name       = "dev"
 
@@ -20,21 +20,5 @@ sqs_thresholds = {
   "sqs-pre-night-audit" = {
     visible    = 50
     oldest_age = 180
-  },
-  "sqs-push-down-to-slave" = {
-      visible    = 150
-      oldest_age = 400
-    },
-  "queue-1" = {
-    visible    = 40
-    oldest_age = 160
-  },
-  "queue-2" = {
-    visible    = 30
-    oldest_age = 140
-  },
-  "queue-3" = {
-    visible    = 20
-    oldest_age = 120
   }
 }
